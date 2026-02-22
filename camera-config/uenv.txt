@@ -1,0 +1,21 @@
+baseaddr=0x80600000
+baudrate=115200
+bootargs=setenv bootargs mem=${osmem} rmem=${rmem} console=${serialport},${baudrate}n8 panic=${panic_timeout} root=${root} rootfstype=${rootfstype} init=${init} ${mtdparts}
+bootcmd=sf probe-alt;sq probe-alt;run mtdparts;run bootargs;sf read ${baseaddr} ${kern_addr} ${kern_size};bootm ${baseaddr}
+mtdparts=setenv mtdparts mtdparts=jz_sfc:256k(boot),32k(env),224k(config),${kern_size_dec}(kernel),${rootfs_size}(rootfs),-(rootfs_data)${update}
+panic_timeout=10
+root=/dev/mtdblock4
+serialport=ttyS1
+disable_eth=false
+disable_sd=false
+enable_updates=true
+
+gpio_default=49o 50o 62i 63o 79O 80o 81o 82o
+gpio_ircut=49 50
+gpio_button=62
+gpio_spk_en=63
+gpio_led_b=79
+gpio_led_r=80
+gpio_white=81
+gpio_ir850=82
+

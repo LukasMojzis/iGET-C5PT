@@ -1,0 +1,6 @@
+[submodule "thingino-firmware"]
+	path = thingino-firmware
+	url = https://github.com/themactep/thingino-firmware
+[submodule "u-boot"]
+	path = u-boot
+	url = https://github.com/LukasMojzis/ingenic-u-boot-xburst2
