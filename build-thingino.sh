@@ -9,7 +9,7 @@ CAMERA_CONFIG="${CAMERA_REPO}/camera-config"
 CAMERA_MAKE="iGET"
 CAMERA_MODEL="C5PT"
 CAMERA_SOC="T41LQ"
-CAMERA_SENSOR="unknown"
+CAMERA_SENSOR="GC4023"
 CAMERA_PHY="JL1101"
 CAMERA=$(echo "${CAMERA_MAKE}_${CAMERA_MODEL}_${CAMERA_SOC}_${CAMERA_SENSOR}_${CAMERA_PHY}" | awk '{print tolower($0)}' | tr ' ' '-')
 
@@ -72,17 +72,4 @@ CAMERA="${CAMERA}" "${THINGINO_REPO}/docker-build.sh" "$@"
 OUT_FIRMWARE=$(eval ls "${THINGINO_REPO}/output/stable/${CAMERA}-*/images/thingino-${CAMERA}.bin" | tail -1)
 OUT_UBOOTENV=$(eval ls "${THINGINO_REPO}/output/stable/${CAMERA}-*/images/u-boot-env.bin" | tail -1)
 
-
-echo -n "Patching firmware file.. "
-dd \
-  if="${OUT_UBOOTENV}" \
-  of="${OUT_FIRMWARE}" \
-  seek=262144 bs=1 count=32768 conv=notrunc status=none
-echo "done."
-
-echo "printenv:"
-dd \
-  if="${OUT_FIRMWARE}" \
-  skip=262144 bs=1 count=32768 status=none | strings
-
-echo "Patched firmware: ${OUT_FIRMWARE}"
+echo "Firmware: ${OUT_FIRMWARE}"
